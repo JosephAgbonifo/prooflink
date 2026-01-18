@@ -1,0 +1,38 @@
+{
+  "name": "prooflink_server",
+  "version": "1.0.0",
+  "description": "server for provelink",
+  "keywords": [
+    "prooflink",
+    "payment.",
+    "fundraiser"
+  ],
+  "homepage": "https://github.com/josephagbonifo/prooflink#readme",
+  "bugs": {
+    "url": "https://github.com/josephagbonifo/prooflink/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josephagbonifo/prooflink.git"
+  },
+  "license": "ISC",
+  "author": "Agbonifo Joseph",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server"
+  },
+  "dependencies": {
+    "axios": "^1.13.2",
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "ethers": "^6.16.0",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.1.4",
+    "morgan": "^1.10.1",
+    "uuid": "^13.0.0"
+  }
+}
