@@ -2,9 +2,7 @@ import axios from "axios"; // ✅ make sure path matches your project\
 // import { useAccount } from "wagmi";
 // const { isConnected, address } = useAccount();
 
-// Change this if you deploy or tunnel your backend
-// const BASE_URL = "https://tiketa-51fb.onrender.com";
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
 // Create a single axios instance
 const api = axios.create({
