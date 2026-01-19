@@ -76,7 +76,7 @@ export default function ProjectsPage() {
       <div className="flex flex-col justify-center items-center h-[60vh] gap-4">
         <div className="w-12 h-12 border-4 border-slate-100 border-t-moss rounded-full animate-spin" />
         <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">
-          Scanning Flare Ledger...
+          ...Fetching...
         </p>
       </div>
     );
@@ -90,7 +90,7 @@ export default function ProjectsPage() {
             <ShieldCheck size={14} /> Verified Ecosystem
           </div>
           <h1 className="text-4xl md:text-6xl font-montserrat font-black text-slate-900 leading-tight">
-            Explore <span className="text-moss">Opportunities</span>
+            Explore <span className="text-moss">Projects</span>
           </h1>
           <p className="mt-4 text-slate-500 text-lg font-medium">
             Support builders using cryptographically anchored ISO 20022 payments
@@ -176,7 +176,7 @@ export default function ProjectsPage() {
 
                   <div className="pt-6 border-t border-slate-50 flex justify-between items-center mt-auto">
                     <span className="text-xs font-black text-slate-900 group-hover:text-moss transition-colors flex items-center gap-2 uppercase tracking-tighter">
-                      View Protocol{" "}
+                      View Project{" "}
                       <ArrowRight
                         size={14}
                         className="group-hover:translate-x-1 transition-transform"

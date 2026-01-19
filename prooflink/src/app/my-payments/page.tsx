@@ -50,9 +50,9 @@ export default function PaymentsPage() {
   if (loading) {
     return (
       <div className="flex flex-col justify-center items-center h-[60vh] gap-4">
-        <div className="w-12 h-12 border-4 border-moss/20 border-t-moss rounded-full animate-spin" />
-        <p className="text-slate-500 font-medium animate-pulse">
-          Securing history...
+        <div className="w-12 h-12 border-4 border-slate-100 border-t-moss rounded-full animate-spin" />
+        <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">
+          ...Fetching...
         </p>
       </div>
     );

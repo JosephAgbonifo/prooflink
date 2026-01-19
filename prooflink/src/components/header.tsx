@@ -1,160 +1,207 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, Wallet, Plus, ShieldCheck } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, X, Plus, ShieldCheck, LayoutDashboard } from "lucide-react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useDisconnect } from "wagmi";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
   const { isConnected, address } = useAccount();
   const { disconnect } = useDisconnect();
+
+  // Close menu when route changes
+  useEffect(() => setMenuOpen(false), [pathname]);
+
   const shortAddress = address
-    ? `${address.slice(0, 4)}...${address.slice(-3)}`
+    ? `${address.slice(0, 6)}...${address.slice(-4)}`
     : "";
 
-  return (
-    <header className="sticky top-0 z-50 bg-white border-b border-deep/10">
-      <div className="mx-auto max-w-7xl px-4 h-14 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/logo.png"
-            alt="ProofLink"
-            width={115}
-            height={28}
-            priority
-          />
-        </Link>
+  const navLinks = [
+    { name: "Projects", href: "/projects" },
+    {
+      name: "Verify Project",
+      href: "/verify_project",
+      icon: <ShieldCheck size={16} />,
+    },
+    {
+      name: "Verify Payment",
+      href: "/verify",
+      icon: <ShieldCheck size={16} />,
+    },
+    { name: "API", href: "/api" },
+  ];
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8 font-montserrat text-[13px] text-deep">
-          <Link href="/projects" className="hover:text-moss transition">
-            Projects
+  const authLinks = [
+    { name: "My Payments", href: "/my-payments" },
+    { name: "My Projects", href: "/my-projects" },
+  ];
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/80 backdrop-blur-md">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex-shrink-0 transition hover:opacity-80">
+            <Image
+              src="/logo.png"
+              alt="ProofLink"
+              width={120}
+              height={30}
+              priority
+              className="h-auto w-auto"
+            />
           </Link>
-          <Link
-            href="/verify"
-            className="flex items-center gap-1 hover:text-moss transition"
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-moss ${
+                  pathname === link.href ? "text-moss" : "text-slate-600"
+                }`}
+              >
+                {link.icon}
+                {link.name}
+              </Link>
+            ))}
+
+            {isConnected && (
+              <div className="flex items-center gap-6 border-l border-gray-200 ml-2 pl-6">
+                {authLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm font-medium text-slate-600 hover:text-moss transition"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </nav>
+
+          {/* Desktop Actions */}
+          <div className="hidden md:flex items-center gap-3">
+            {!isConnected ? (
+              <ConnectButton chainStatus="icon" showBalance={false} />
+            ) : (
+              <div className="flex items-center gap-3 bg-gray-50 p-1 rounded-lg border border-gray-100">
+                <span className="pl-2 text-xs font-mono font-semibold text-slate-500">
+                  {shortAddress}
+                </span>
+                <button
+                  onClick={() => disconnect()}
+                  className="rounded-md bg-white px-3 py-1.5 text-xs font-bold text-red-500 shadow-sm ring-1 ring-inset ring-red-200 hover:bg-red-50 transition"
+                >
+                  Exit
+                </button>
+                <Link
+                  href="/create"
+                  className="inline-flex items-center gap-1.5 rounded-md bg-moss px-4 py-1.5 text-sm font-semibold text-white shadow-md hover:brightness-110 transition"
+                >
+                  <Plus size={16} strokeWidth={3} />
+                  Create
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="inline-flex md:hidden p-2 text-slate-600 hover:bg-gray-100 rounded-lg transition"
           >
-            <ShieldCheck size={14} />
-            Verify Payment
-          </Link>
-          <Link href="/api" className="hover:text-moss transition">
-            API
-          </Link>
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-sm md:hidden"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+
+      {/* Mobile Menu Content */}
+      <div
+        className={`fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white px-6 py-6 shadow-xl transition-transform duration-300 ease-in-out md:hidden ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between mb-8">
+          <Image src="/logo.png" alt="Logo" width={100} height={25} />
+          <button
+            onClick={() => setMenuOpen(false)}
+            className="p-2 text-slate-500"
+          >
+            <X size={24} />
+          </button>
+        </div>
+
+        <nav className="space-y-4">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="flex items-center gap-3 py-3 text-base font-semibold text-slate-700 hover:text-moss border-b border-gray-50"
+            >
+              {link.icon}
+              {link.name}
+            </Link>
+          ))}
+
           {isConnected && (
             <>
-              <Link href="/my-payments" className="hover:text-moss transition">
-                My Payments
-              </Link>
-              <Link href="/my-projects" className="hover:text-moss transition">
-                My Projects
-              </Link>
+              <div className="pt-4 pb-2 text-xs font-bold uppercase tracking-wider text-slate-400">
+                Account
+              </div>
+              {authLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="flex items-center gap-3 py-3 text-base font-semibold text-slate-700 hover:text-moss border-b border-gray-50"
+                >
+                  <LayoutDashboard size={18} />
+                  {link.name}
+                </Link>
+              ))}
             </>
           )}
         </nav>
 
-        {/* Desktop Actions */}
-        <div className="hidden md:flex items-center gap-2">
+        <div className="mt-8 space-y-4">
           {!isConnected ? (
-            <ConnectButton showBalance={true} />
+            <div className="w-full flex justify-center">
+              <ConnectButton />
+            </div>
           ) : (
-            <>
-              <span className="text-sm text-deep font-mono">
-                {shortAddress}
-              </span>
-              <button
-                onClick={() => disconnect()}
-                className="rounded-md bg-red-500 px-3 py-1.5 text-white text-sm font-medium hover:opacity-90 transition"
-              >
-                Disconnect
-              </button>
+            <div className="space-y-3">
               <Link
                 href="/create"
-                className="inline-flex items-center gap-2 rounded-md bg-moss px-3 py-1.5 text-white font-poppins text-sm font-medium hover:opacity-90 transition"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-moss py-4 text-white font-bold shadow-lg"
               >
-                <Plus size={15} />
-                Create
+                <Plus size={20} />
+                Create New Project
               </Link>
-            </>
+              <button
+                onClick={() => disconnect()}
+                className="w-full py-3 text-sm font-bold text-red-500 border border-red-100 rounded-xl hover:bg-red-50"
+              >
+                Disconnect Wallet ({shortAddress})
+              </button>
+            </div>
           )}
         </div>
-
-        {/* Mobile Menu Toggle */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-deep"
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
       </div>
-
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-white border-t border-deep/10">
-          <nav className="flex flex-col gap-4 px-4 py-5 font-montserrat text-sm text-deep">
-            <Link href="/projects" onClick={() => setMenuOpen(false)}>
-              Projects
-            </Link>
-            <Link href="/verify" onClick={() => setMenuOpen(false)}>
-              Verify Payment
-            </Link>
-            <Link href="/api" onClick={() => setMenuOpen(false)}>
-              API
-            </Link>
-
-            {isConnected && (
-              <>
-                <Link href="/my-payments" onClick={() => setMenuOpen(false)}>
-                  My Payments
-                </Link>
-                <Link href="/my-projects" onClick={() => setMenuOpen(false)}>
-                  My Projects
-                </Link>
-              </>
-            )}
-
-            {!isConnected ? (
-              <div onClick={() => setMenuOpen(false)}>
-                <ConnectButton
-                  showBalance={false}
-                  chainStatus="icon"
-                  accountStatus="avatar"
-                  label={shortAddress}
-                />
-              </div>
-            ) : (
-              <div className="flex flex-col gap-3 mt-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-deep font-mono">
-                    {shortAddress}
-                  </span>
-                  <button
-                    onClick={() => {
-                      disconnect();
-                      setMenuOpen(false);
-                    }}
-                    className="rounded-md bg-red-500 px-3 py-1.5 text-white text-sm font-medium"
-                  >
-                    Disconnect
-                  </button>
-                </div>
-                <Link
-                  href="/create"
-                  onClick={() => setMenuOpen(false)}
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-moss px-3 py-2 text-white font-poppins font-medium"
-                >
-                  <Plus size={16} />
-                  Create Project
-                </Link>
-              </div>
-            )}
-          </nav>
-        </div>
-      )}
     </header>
   );
 }

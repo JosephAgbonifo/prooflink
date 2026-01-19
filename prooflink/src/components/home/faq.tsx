@@ -18,7 +18,7 @@ const faqs = [
   {
     question: "What are the costs associated with creating a project?",
     answer:
-      "Creating a project on ProofLink is free. However, since we operate on the Flare Coston2 Testnet (and eventually Mainnet), users will need a small amount of FLR to cover network gas fees when initiating payments or anchoring proofs.",
+      "Creating a project on ProofLink is free. However, since we operate on the Flare, users will need a small amount of FLR to cover network gas fees when initiating payments or anchoring proofs.",
   },
   {
     question: "Can I integrate ProofLink receipts into my own app?",
@@ -28,7 +28,7 @@ const faqs = [
   {
     question: "Is my payment data private?",
     answer:
-      "While the transaction itself is public on the Flare Network, ProofLink uses a combination of on-chain anchoring and off-chain (IPFS) encrypted metadata to ensure that sensitive project details are only accessible to authorized parties via the API.",
+      "While the transaction itself is public on the Flare Network and on ProofLink, ProofLink uses a combination of on-chain anchoring and off-chain (IPFS) encrypted metadata to ensure that sensitive project details are only accessible to authorized parties via the API.",
   },
 ];
 
@@ -106,7 +106,7 @@ export default function FaqSection() {
           <p className="text-slate-400 text-sm font-medium">
             Still have questions?{" "}
             <Link
-              href="mailto:support@prooflink.io"
+              href="mailto:joesefair@gmail.com"
               className="text-moss font-bold hover:underline"
             >
               Contact our dev team

@@ -56,8 +56,11 @@ export default function ReceiptPage() {
 
   if (loading)
     return (
-      <div className="p-20 text-center animate-pulse">
-        Verifying ISO Receipt...
+      <div className="flex flex-col justify-center items-center h-[60vh] gap-4">
+        <div className="w-12 h-12 border-4 border-slate-100 border-t-moss rounded-full animate-spin" />
+        <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">
+          ...Fetching...
+        </p>
       </div>
     );
   if (!data) return <div className="p-20 text-center">Receipt not found.</div>;

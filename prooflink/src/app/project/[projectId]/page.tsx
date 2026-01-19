@@ -129,8 +129,11 @@ export default function ProjectPage() {
 
   if (loading)
     return (
-      <div className="flex justify-center items-center h-[60vh] text-slate-500 animate-pulse font-medium">
-        Syncing with Flare Coston2...
+      <div className="flex flex-col justify-center items-center h-[60vh] gap-4">
+        <div className="w-12 h-12 border-4 border-slate-100 border-t-moss rounded-full animate-spin" />
+        <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">
+          ...Fetching...
+        </p>
       </div>
     );
 

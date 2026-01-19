@@ -35,16 +35,10 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               <a
-                href="#"
+                href="https://x.com/hellojoedev"
                 className="p-2 bg-slate-50 rounded-full text-slate-400 hover:text-moss transition"
               >
                 <Twitter size={18} />
-              </a>
-              <a
-                href="#"
-                className="p-2 bg-slate-50 rounded-full text-slate-400 hover:text-moss transition"
-              >
-                <Github size={18} />
               </a>
             </div>
           </div>
@@ -95,14 +89,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/api/webhooks"
-                  className="hover:text-moss transition"
-                >
-                  Webhooks
-                </Link>
-              </li>
-              <li>
                 <a
                   href="https://coston2-explorer.flare.network"
                   target="_blank"
@@ -123,9 +109,8 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-[11px] text-slate-500 leading-relaxed mb-4">
-              All transactions are processed through the Flare Coston2 Testnet
-              and are cryptographically verifiable using state-connector
-              protocols.
+              All transactions are processed through the Flare and are
+              cryptographically verifiable using state-connector protocols.
             </p>
             <div className="flex items-center gap-2 text-[10px] font-black uppercase text-moss bg-moss/10 px-3 py-1.5 rounded-full w-fit">
               <div className="w-1.5 h-1.5 rounded-full bg-moss animate-pulse" />

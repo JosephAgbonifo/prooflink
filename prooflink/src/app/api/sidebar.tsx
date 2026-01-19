@@ -21,20 +21,6 @@ const menuGroups = [
       { name: "Authentication", href: "/api/auth", icon: Key },
     ],
   },
-  {
-    title: "Endpoints",
-    items: [
-      { name: "Query Payments", href: "/api/payments", icon: Database },
-      { name: "Project Metadata", href: "/api/projects", icon: Terminal },
-    ],
-  },
-  {
-    title: "Webhooks & Security",
-    items: [
-      { name: "Payment Hooks", href: "/api/webhooks", icon: ShieldCheck },
-      { name: "Network Status", href: "/api/status", icon: Activity },
-    ],
-  },
 ];
 
 export default function Sidebar() {
@@ -107,7 +93,7 @@ export default function Sidebar() {
           <div className="flex items-center gap-2 mb-2">
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">
-              Flare Coston2
+              Flare
             </span>
           </div>
           <p className="text-[10px] text-slate-400 leading-relaxed">

@@ -20,7 +20,7 @@ const features = [
   },
   {
     title: "Immutable Receipts",
-    desc: "Proofs are stored using IPFS and anchored on Flare, making them permanent and tamper-proof.",
+    desc: "Proofs are stored and anchored on Flare, making them permanent and tamper-proof.",
     icon: <Lock className="text-moss" size={24} />,
   },
   {

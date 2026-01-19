@@ -85,10 +85,10 @@ export default function ProjectsPage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-center items-center h-[70vh] gap-4">
+      <div className="flex flex-col justify-center items-center h-[60vh] gap-4">
         <div className="w-12 h-12 border-4 border-slate-100 border-t-moss rounded-full animate-spin" />
-        <p className="text-slate-400 font-montserrat animate-pulse">
-          Scanning Flare Ecosystem...
+        <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">
+          ...Fetching...
         </p>
       </div>
     );

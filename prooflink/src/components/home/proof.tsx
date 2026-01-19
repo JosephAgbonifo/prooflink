@@ -136,22 +136,22 @@ export default function LiveFeed() {
                 Total Verified
               </p>
               <p className="text-3xl font-black font-montserrat tracking-tighter text-moss">
-                12,842
+                100+
               </p>
             </div>
             <div className="w-[1px] h-10 bg-slate-800" />
             <div className="text-center">
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
-                Proofs Anchored
+                Payment Proofs Anchored
               </p>
               <p className="text-3xl font-black font-montserrat tracking-tighter text-white">
-                45.2k
+                500+
               </p>
             </div>
           </div>
           <p className="text-slate-400 text-xs font-medium max-w-sm text-center md:text-right">
             Every transaction above represents a cryptographically signed ISO
-            20022 message validated by Flare's FTSO and State Connector.
+            20022 message validated and anchored onchain.
           </p>
         </div>
       </div>

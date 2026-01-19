@@ -17,7 +17,7 @@ export default function Hero() {
         <div className="flex-1 flex flex-col gap-8 text-center md:text-left">
           <div className="inline-flex items-center gap-2 self-center md:self-start px-4 py-2 rounded-full bg-slate-50 border border-slate-100 text-moss text-xs font-black uppercase tracking-widest">
             <Sparkles size={14} />
-            Anchored on Flare Coston2
+            Payment Anchored onChain
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black font-montserrat text-slate-900 leading-[1.1]">
@@ -66,7 +66,7 @@ export default function Hero() {
               src="/hero-illustration.png"
               alt="ProofLink Interface"
               fill
-              className="object-cover p-4"
+              className="object-cover p-1 rounded-[3rem]"
               priority
             />
           </div>
@@ -113,7 +113,7 @@ export default function Hero() {
               {
                 step: "02",
                 title: "Anchor Payments",
-                desc: "Supporters pay in FLR; we generate an ISO 20022 compliant proof.",
+                desc: "Supporters pay in FLR; we generate a public and ISO 20022 compliant proof.",
                 icon: <ShieldCheck className="text-moss" size={24} />,
               },
               {

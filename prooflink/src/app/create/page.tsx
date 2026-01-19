@@ -72,6 +72,9 @@ export default function CreateProjectPage() {
         const uploadedUrl = await uploadToCloudinary(file);
         if (!uploadedUrl) throw new Error("Image upload failed");
         finalImageUrl = uploadedUrl;
+      } else {
+        setMessage({ type: "error", text: "pls upload an Image" });
+        return;
       }
 
       // 2. Build the payload EXPLICITLY
@@ -194,7 +197,7 @@ export default function CreateProjectPage() {
                     render={({ field }) => (
                       <select
                         {...field}
-                        className="w-full px-5 py-4 bg-slate-50 border-2 border-transparent focus:border-moss focus:bg-white rounded-2xl outline-none transition-all font-bold text-slate-900 cursor-pointer appearance-none"
+                        className="w-full px-5 py-4 bg-Fslate-50 border-2 border-transparent focus:border-moss focus:bg-white rounded-2xl outline-none transition-all font-bold text-slate-900 cursor-pointer appearance-none"
                       >
                         <option value="fundraising">Fundraising</option>
                         <option value="onetime">One-time Payment</option>
@@ -252,12 +255,15 @@ export default function CreateProjectPage() {
         {/* Sidebar / Preview */}
         <div className="lg:col-span-2 space-y-8">
           {/* Image Upload Area */}
-          <div className="bg-slate-50 p-8 rounded-[3rem] border-2 border-dashed border-slate-200 hover:border-moss transition-colors group relative overflow-hidden">
+          <div className="bg-slate-50 p-8 rounded-[3rem] w-80 h-80 border-2 border-dashed border-slate-200 hover:border-moss transition-colors group relative overflow-hidden">
             <input
               type="file"
               accept="image/*"
               ref={fileInputRef}
-              onChange={handleImageChange}
+              onChange={() => {
+                handleImageChange;
+                setMessage(null);
+              }}
               className="absolute inset-0 opacity-0 cursor-pointer z-10"
               required
             />
