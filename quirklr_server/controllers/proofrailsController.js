@@ -13,7 +13,7 @@ export const addPayment = async (req, res) => {
       tip_tx_hash: data.paymentId,
       chain: "coston2",
       amount: data.amount,
-      currency: "FLR",
+      currency: data.currency,
       sender_wallet: data.payerWallet || "unknown",
       receiver_wallet: "platform",
       reference: reference,
