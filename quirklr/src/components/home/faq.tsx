@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Plus, Minus, HelpCircle } from "lucide-react";
 import Link from "next/link";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
 const faqs = [
   {
@@ -35,11 +36,33 @@ const faqs = [
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+    },
+  };
+
   return (
     <section className="py-24 bg-slate-50">
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-moss/10 text-moss text-[10px] font-black uppercase tracking-widest mb-4">
             <HelpCircle size={14} />
             Common Questions
@@ -50,16 +73,24 @@ export default function FaqSection() {
           <p className="text-slate-500 font-medium">
             New to ISO 20022 or Flare? We've got you covered.
           </p>
-        </div>
+        </motion.div>
 
         {/* Accordion */}
-        <div className="space-y-4">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="space-y-4"
+        >
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
-              <div
+              <motion.div
                 key={index}
-                className={`transition-all duration-300 rounded-[2rem] border ${
+                variants={itemVariants}
+                layout
+                className={`transition-all duration-300 rounded-4xl border ${
                   isOpen
                     ? "bg-white border-moss shadow-xl shadow-moss/5"
                     : "bg-white border-slate-200 hover:border-slate-300"
@@ -67,7 +98,7 @@ export default function FaqSection() {
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full flex items-center justify-between p-6 md:p-8 text-left"
+                  className="w-full flex items-center justify-between p-6 md:p-8 text-left outline-none"
                 >
                   <span
                     className={`font-bold text-lg md:text-xl transition-colors ${
@@ -76,33 +107,48 @@ export default function FaqSection() {
                   >
                     {faq.question}
                   </span>
-                  <div
-                    className={`shrink-0 ml-4 p-2 rounded-full transition-all ${
-                      isOpen
-                        ? "bg-moss text-white rotate-180"
-                        : "bg-slate-100 text-slate-400"
-                    }`}
+                  <motion.div
+                    animate={{
+                      rotate: isOpen ? 180 : 0,
+                      backgroundColor: isOpen ? "#ff4d00" : "#f1f5f9", // --moss color
+                      color: isOpen ? "#ffffff" : "#94a3b8",
+                    }}
+                    className="shrink-0 ml-4 p-2 rounded-full"
                   >
                     {isOpen ? <Minus size={20} /> : <Plus size={20} />}
-                  </div>
+                  </motion.div>
                 </button>
 
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div className="p-6 md:p-8 pt-0 text-slate-500 leading-relaxed border-t border-slate-50 mt-2">
-                    {faq.answer}
-                  </div>
-                </div>
-              </div>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{
+                        duration: 0.3,
+                        ease: [0.22, 1, 0.36, 1] as const,
+                      }}
+                    >
+                      <div className="p-6 md:p-8 pt-0 text-slate-500 leading-relaxed border-t border-slate-50 mt-2">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Support CTA */}
-        <div className="mt-16 text-center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-16 text-center"
+        >
           <p className="text-slate-400 text-sm font-medium">
             Still have questions?{" "}
             <Link
@@ -112,7 +158,7 @@ export default function FaqSection() {
               Contact our dev team
             </Link>
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

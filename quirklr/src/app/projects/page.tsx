@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getRequest } from "@/lib/api";
 import { Rocket, Target, ArrowRight, Layers, ShieldCheck } from "lucide-react";
+import { BrandQRCode } from "@/components/qr";
 
 interface Project {
   projectId: string;
@@ -192,6 +193,7 @@ export default function ProjectsPage() {
           })}
         </div>
       )}
+      <BrandQRCode value={"0x123...abc"} logoImage="/logo.png" />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import Header from "@/components/header";
 import { Providers } from "@/components/providers";
 import Footer from "@/components/footer";
 import BackgroundOrbs from "@/components/layout/background-orbs";
+import { InstallPWA } from "@/components/installPWA";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -88,6 +89,7 @@ export default function RootLayout({
           <BackgroundOrbs />
           {children}
           <Footer />
+          <InstallPWA />
         </Providers>
       </body>
     </html>
