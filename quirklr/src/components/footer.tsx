@@ -73,8 +73,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/stats" className="hover:text-moss transition">
-                  Network Stats
+                <Link href="/about" className="hover:text-moss transition">
+                  About
                 </Link>
               </li>
             </ul>

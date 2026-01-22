@@ -9,7 +9,6 @@ const paymentSchema = new mongoose.Schema(
     currency: { type: String, required: true },
     reference: { type: String, required: true },
     amount: { type: Number, required: true },
-    asset: { type: String, default: "FLR" },
     proofHash: { type: String }, // could store transaction hash or generated proof ID
     timestamp: { type: Date, default: Date.now },
   },

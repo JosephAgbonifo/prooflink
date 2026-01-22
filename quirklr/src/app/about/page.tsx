@@ -10,120 +10,114 @@ import {
   FileCode,
   Lock,
   Search,
+  ArrowRight,
+  TrendingUp,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function AboutPage() {
+  const router = useRouter();
   return (
     <div className="max-w-7xl mx-auto px-4 py-12 md:py-24 space-y-32">
-      {/* 1. ARCHITECTURAL VISION */}
+      {/* 1. VISION & PROBLEM SOLVING */}
       <section className="relative">
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-moss/10 blur-[120px] rounded-full -z-10" />
         <div className="max-w-4xl">
           <div className="flex items-center gap-2 text-moss font-black uppercase tracking-[0.3em] text-[10px] mb-6">
-            <Network size={14} /> Protocol Architecture
+            <Network size={14} /> Financial Metadata Infrastructure
           </div>
-          <h1 className="text-5xl md:text-7xl font-montserrat font-black text-slate-900 leading-[1.1] mb-8 italic">
-            Standardizing <span className="text-moss">Value</span>.
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8 italic">
+            Standardizing <span className="text-moss">Web3 Value</span>.
           </h1>
           <p className="text-xl text-slate-600 font-medium leading-relaxed">
-            Quirklr is a layer-2 metadata protocol for the Flare Network. It
-            solves the "Anonymous Transaction Problem" by wrapping raw
-            blockchain transfers in **ISO 20022 compliant data structures**,
-            providing the first auditable link between Web3 liquidity and TradFi
-            reporting.
+            Quirklr is a financial verification layer built for the Flare
+            Network. We solve the "Context Gap" in blockchain transfers by
+            wrapping raw on-chain data in **ISO 20022 compliant structures**,
+            providing the first auditable bridge between decentralized liquidity
+            and institutional financial reporting.
           </p>
         </div>
       </section>
 
-      {/* 2. THE PROBLEM & SOLUTION (HIGH DETAIL) */}
+      {/* 2. THE DUAL-BUILDER ECOSYSTEM */}
       <section className="grid md:grid-cols-2 gap-12">
         <div className="bg-slate-900 rounded-[3rem] p-10 text-white shadow-2xl border border-slate-800">
-          <h3 className="text-rose-400 font-bold mb-4 flex items-center gap-2">
-            <Lock size={18} /> The TradFi Gap
+          <h3 className="text-moss font-bold mb-4 flex items-center gap-2 uppercase tracking-widest text-xs">
+            <TrendingUp size={18} /> For Fundraising Builders
           </h3>
           <p className="text-slate-400 text-sm leading-relaxed mb-6">
-            Currently, blockchain payments lack context. A hash like{" "}
-            <code className="text-slate-200 bg-white/5 px-1">0xaf2...</code>{" "}
-            tells a bank nothing about the purpose, project, or compliance
-            status of the funds. This makes institutional adoption nearly
-            impossible.
+            Launch projects with absolute transparency. Quirklr provides a
+            secure treasury vault where every contribution is automatically
+            indexed and anchored to a unique Receipt ID.
           </p>
-          <div className="h-px bg-slate-800 w-full mb-6" />
-          <h3 className="text-emerald-400 font-bold mb-4 flex items-center gap-2">
-            <Zap size={18} /> The Quirklr Fix
-          </h3>
-          <p className="text-slate-400 text-sm leading-relaxed">
-            Quirklr intercepts transaction events and generates a{" "}
-            <strong>Cryptographic Receipt</strong>. This receipt binds the
-            transaction hash to an ISO 20022 XML structure, making the payment
-            instantly recognizable by global banking software (SAP, SWIFT,
-            Oracle).
-          </p>
+          <ul className="space-y-3 text-sm text-slate-300">
+            <li className="flex gap-2">✔ Automated 1.5% Fee Calculation</li>
+            <li className="flex gap-2">✔ Real-time Contributor Tracking</li>
+            <li className="flex gap-2">✔ Tax-Ready Financial Metadata</li>
+          </ul>
         </div>
 
-        <div className="flex flex-col justify-center space-y-8">
-          <div className="space-y-2">
-            <h4 className="text-[10px] font-black text-moss uppercase tracking-widest">
-              Present Capabilities
-            </h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-slate-700 font-medium">
-                <div className="mt-1 bg-moss/20 p-1 rounded-full">
-                  <ShieldCheck size={12} className="text-moss" />
-                </div>
-                Multi-Asset Settlement (C2FLR, USDT, FXRP) with automated
-                decimal normalization.
-              </li>
-              <li className="flex items-start gap-3 text-slate-700 font-medium">
-                <div className="mt-1 bg-moss/20 p-1 rounded-full">
-                  <ShieldCheck size={12} className="text-moss" />
-                </div>
-                Developer SDK for on-chain payment verification using unique API
-                keys.
-              </li>
-              <li className="flex items-start gap-3 text-slate-700 font-medium">
-                <div className="mt-1 bg-moss/20 p-1 rounded-full">
-                  <ShieldCheck size={12} className="text-moss" />
-                </div>
-                Real-time fundraising progress tracking via indexed sub-graphs.
-              </li>
-            </ul>
+        <div className="bg-white rounded-[3rem] p-10 text-slate-900 shadow-xl border border-slate-100 flex flex-col justify-center">
+          <h3 className="text-moss font-bold mb-4 flex items-center gap-2 uppercase tracking-widest text-xs">
+            <Zap size={18} /> For Service Merchants
+          </h3>
+          <p className="text-slate-500 text-sm leading-relaxed mb-6">
+            Integrate one-time payment links directly into your existing apps.
+            Use our Verification API to instantly confirm a user’s payment
+            status and unlock digital services without manual oversight.
+          </p>
+          <div className="flex gap-4">
+            <div className="bg-slate-50 p-4 rounded-2xl flex-1 border border-slate-100">
+              <p className="text-[10px] font-black text-slate-400 uppercase">
+                Verification
+              </p>
+              <p className="text-sm font-bold text-slate-700">Instant API</p>
+            </div>
+            <div className="bg-slate-50 p-4 rounded-2xl flex-1 border border-slate-100">
+              <p className="text-[10px] font-black text-slate-400 uppercase">
+                Standards
+              </p>
+              <p className="text-sm font-bold text-slate-700">ISO 20022</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 3. TECHNICAL DEEP DIVE (THE HACKATHON "WOW" FACTOR) */}
+      {/* 3. TECHNICAL LIFECYCLE */}
       <section className="space-y-12">
-        <div className="text-center">
-          <h2 className="text-3xl font-montserrat font-black text-slate-900">
-            How It Works
+        <div className="text-center max-w-2xl mx-auto">
+          <h2 className="text-3xl font-black text-slate-900 mb-4">
+            The Lifecycle of a Receipt
           </h2>
-          <p className="text-slate-500">The lifecycle of a verified payment.</p>
+          <p className="text-slate-500 text-sm">
+            How Quirklr transforms a raw Flare transaction into an auditable
+            financial record.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {[
             {
-              title: "1. Event Emission",
-              desc: "User triggers a transfer. Our listener captures the 0x event and relevant metadata (ProjectID, Payer, Ref).",
-              icon: <Zap />,
+              title: "1. Smart Vault Detection",
+              desc: "A user pays via C2FLR, USDT0, or FXRP. Our frontend captures the 0x-hash and binds it to your Project ID.",
+              icon: <Lock />,
             },
             {
-              title: "2. ISO Mapping",
-              desc: "Raw data is mapped to the ISO 20022 'pain.001' schema, defining the purpose of the payment.",
+              title: "2. ISO 20022 Mapping",
+              desc: "Data is processed through our engine to generate a 'pain.001' XML structure, identifying the purpose of payment.",
               icon: <FileCode />,
             },
             {
-              title: "3. Cryptographic Anchor",
-              desc: "A SHA-256 hash of the full message is generated and stored, creating a permanent proof of intent.",
+              title: "3. Metadata Anchoring",
+              desc: "A unique Receipt ID is generated and indexed in our database, creating a searchable cryptographic anchor.",
               icon: <Layers />,
             },
           ].map((step, i) => (
             <div
               key={i}
-              className="p-8 bg-white border border-slate-100 rounded-[2.5rem] shadow-sm"
+              className="p-8 bg-slate-50/50 border border-slate-100 rounded-[2.5rem] hover:bg-white hover:shadow-lg transition-all"
             >
-              <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-moss mb-6">
+              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-moss shadow-sm mb-6">
                 {step.icon}
               </div>
               <h4 className="font-black text-slate-900 mb-2">{step.title}</h4>
@@ -135,75 +129,104 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4. FUTURE POTENTIAL (SCALABILITY) */}
-      <section className="space-y-12 bg-slate-50 rounded-[4rem] p-12 md:p-20 border border-slate-100">
-        <div className="flex flex-col md:flex-row gap-12">
-          <div className="md:w-1/3">
-            <h2 className="text-4xl font-montserrat font-black text-slate-900 leading-tight">
-              Future <br /> <span className="text-moss">Potentials</span>
+      {/* 4. BUSINESS LOGIC & SUSTAINABILITY */}
+      <section className="bg-slate-900 rounded-[4rem] p-12 md:p-20 text-white relative overflow-hidden">
+        <div className="flex flex-col md:flex-row gap-12 relative z-10">
+          <div className="md:w-1/2">
+            <h2 className="text-4xl font-black leading-tight mb-6">
+              Sustainable <br />{" "}
+              <span className="text-moss">Business Logic.</span>
             </h2>
-            <p className="text-slate-500 mt-4 text-sm font-medium">
-              Scaling Quirklr into a cross-chain verification powerhouse.
+            <p className="text-slate-400 leading-relaxed mb-8">
+              Quirklr is built for longevity. To maintain the verification
+              infrastructure and indexing services, the system implements a
+              transparent **1.5% protocol charge** on all project withdrawals.
             </p>
+            <div className="flex gap-4">
+              <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">
+                <p className="text-moss text-3xl font-black">1.5%</p>
+                <p className="text-xs font-bold text-slate-500 uppercase">
+                  Fixed Service Fee
+                </p>
+              </div>
+              <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">
+                <p className="text-white text-3xl font-black">0.0s</p>
+                <p className="text-xs font-bold text-slate-500 uppercase">
+                  Sync Latency
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="md:w-2/3 grid sm:grid-cols-2 gap-8">
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 font-black text-slate-900 text-sm tracking-tight">
-                <Globe className="text-moss" size={18} /> Cross-Chain FDC
-              </div>
-              <p className="text-slate-500 text-xs leading-relaxed font-medium">
-                Utilizing the <strong>Flare Data Connector</strong> to verify
-                payments on Bitcoin and XRP Ledger, bringing ISO 20022
-                compliance to non-EVM chains.
+          <div className="md:w-1/2 grid grid-cols-1 gap-6">
+            <div className="p-6 bg-white/5 rounded-3xl border border-white/10">
+              <h4 className="font-bold text-moss mb-2">Institutional Ready</h4>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Our XML metadata exports are designed to be ingested by SAP,
+                Oracle, and SWIFT-compatible bank portals.
               </p>
             </div>
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 font-black text-slate-900 text-sm tracking-tight">
-                <ShieldCheck className="text-moss" size={18} /> ZK-Privacy
-                Proofs
-              </div>
-              <p className="text-slate-500 text-xs leading-relaxed font-medium">
-                Integrating Zero-Knowledge proofs to allow users to verify their
-                "Payer Status" without revealing their wallet balance or
-                transaction history to the public.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 font-black text-slate-900 text-sm tracking-tight">
-                <Cpu className="text-moss" size={18} /> Automated XML Generation
-              </div>
-              <p className="text-slate-500 text-xs leading-relaxed font-medium">
-                A one-click export for accountants to download a{" "}
-                <strong>pain.001.001.03</strong> XML file directly for ingestion
-                into institutional bank portals.
-              </p>
-            </div>
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 font-black text-slate-900 text-sm tracking-tight">
-                <Search className="text-moss" size={18} /> Public Proof Explorer
-              </div>
-              <p className="text-slate-500 text-xs leading-relaxed font-medium">
-                A dedicated search engine for "Receipt IDs" where anyone can
-                verify the cryptographic anchor of a payment without needing a
-                crypto wallet.
+            <div className="p-6 bg-white/5 rounded-3xl border border-white/10">
+              <h4 className="font-bold text-moss mb-2">Developer First</h4>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Secure your services with API keys that offer a 200ms
+                verification response time for all Flare transactions.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. CALL TO ACTION */}
-      <section className="text-center py-20">
-        <h2 className="text-4xl font-montserrat font-black text-slate-900 mb-8">
-          Ready to Build on Quirklr?
-        </h2>
-        <div className="flex justify-center gap-6">
-          <button className="bg-slate-900 text-white px-10 py-5 rounded-[2rem] font-black text-[10px] uppercase tracking-widest hover:bg-moss transition-all">
-            Get API Key
-          </button>
-          <button className="bg-white text-slate-900 border border-slate-200 px-10 py-5 rounded-[2rem] font-black text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-all">
-            Read Whitepaper
-          </button>
+      {/* 5. FUTURE ROADMAP */}
+      <section className="grid md:grid-cols-2 gap-16 items-center px-4">
+        <div>
+          <h2 className="text-4xl font-black text-slate-900 mb-6 tracking-tight">
+            The Roadmap to <br />
+            Global Compliance.
+          </h2>
+          <div className="space-y-6">
+            <div className="flex gap-4">
+              <Globe className="text-moss shrink-0" />
+              <div>
+                <p className="font-bold text-slate-900">
+                  Cross-Chain Verification
+                </p>
+                <p className="text-sm text-slate-500 italic">
+                  Expanding via Flare Data Connector to verify BTC and XRP
+                  payments.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <ShieldCheck className="text-moss shrink-0" />
+              <div>
+                <p className="font-bold text-slate-900">
+                  Zero-Knowledge Privacy
+                </p>
+                <p className="text-sm text-slate-500 italic">
+                  Proving "Status: Paid" without revealing full wallet balances.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="bg-slate-50 p-12 rounded-[3rem] border border-slate-100 text-center">
+          <h3 className="text-2xl font-black text-slate-900 mb-6">
+            Build with Quirklr
+          </h3>
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={(e) => router.push("/api/auth")}
+              className="h-14 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-moss transition-all"
+            >
+              Get Your API Key
+            </button>
+            <button
+              onClick={(e) => router.push("/api")}
+              className="h-14 bg-white border border-slate-200 text-slate-900 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-50 transition-all"
+            >
+              Documentation
+            </button>
+          </div>
         </div>
       </section>
     </div>

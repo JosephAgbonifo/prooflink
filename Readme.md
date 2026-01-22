@@ -1,94 +1,128 @@
-# 🚀 ProofLink
+# 🚀 Quirklr
 
 ### _ISO 20022 Compliant Payment Verification on Flare Network_
 
-**ProofLink** is a decentralized payment gateway and verification layer that bridges the gap between traditional financial messaging standards (**ISO 20022**) and blockchain transparency. Built on the **Flare Network**, it allows projects to receive contributions in multiple assets while providing cryptographically anchored proof of payment for every transaction.
+**Quirklr** is a decentralized payment gateway and verification layer designed to bridge the gap between blockchain transparency and traditional financial messaging standards (**ISO 20022**). Built on the **Flare Network (Coston2)**, Quirklr enables builders to accept contributions and service payments while anchoring every transaction with cryptographically verifiable proof and automated protocol-level accounting.
 
 ---
 
 ## 📖 Table of Contents
 
+- [User Personas](https://www.google.com/search?q=%23-user-personas)
 - [Core Capabilities](https://www.google.com/search?q=%23-core-capabilities)
+- [Technical Architecture](https://www.google.com/search?q=%23-technical-architecture)
 - [How It Works](https://www.google.com/search?q=%23-how-it-works)
-- [Technical Stack](https://www.google.com/search?q=%23-technical-stack)
 - [API & Integration](https://www.google.com/search?q=%23-api--integration)
+- [Admin Governance](https://www.google.com/search?q=%23-admin-governance)
 - [Future Potentials](https://www.google.com/search?q=%23-future-potentials)
-- [Getting Started](https://www.google.com/search?q=%23-getting-started)
+
+---
+
+## 👥 User Personas
+
+### 1. Builders (Type 1: Fundraisers)
+
+- **Workflow:** Connect wallet ➔ Create project ➔ Watch project grow ➔ Withdraw funds.
+- **Goal:** Socially-driven crowdfunding with transparent on-chain accounting.
+
+### 2. Builders (Type 2: Service Merchants)
+
+- **Workflow:** Connect wallet ➔ Create one-time payment link ➔ Integrate into existing suite ➔ Track status via API.
+- **Goal:** Seamlessly accepting crypto for digital services with automated verification.
+
+### 3. Users (Contributors/Payers)
+
+- **Workflow:** Explore projects ➔ Contribute/Pay ➔ View receipt ➔ Download ISO 20022 bundle (XML/Metadata).
+- **Goal:** Securely support projects and receive professional financial documentation.
 
 ---
 
 ## ✨ Core Capabilities
 
-### 1. Multi-Token Support (Coston2 Testnet)
+### 1. Multi-Asset Treasury Management
 
-While **C2FLR** is the native gas and default payment token, ProofLink is architected to handle diverse assets:
+The smart contract vault handles diverse assets on **Coston2** with automated precision:
 
-- **Native Payments:** Direct C2FLR transfers.
-- **Tokenized Assets:** Support for **USDT**, **FXRP**, and other ERC-20 tokens.
-- **Decimals Handling:** Automated precision scaling (6 vs 18 decimals) ensures accounting accuracy across different asset types.
+- **Supported Tokens:** Native **C2FLR**, **USDT0**, and **FXRP**.
+- **Precision Scaling:** Handles accounting for both 6-decimal (USDT/FXRP) and 18-decimal (C2FLR) tokens.
+- **Fixed Protocol Fee:** A **1.5% protocol fee** is automatically calculated and separated from project obligations during the withdrawal phase.
 
 ### 2. ISO 20022 Metadata Anchoring
 
-Every payment is more than just a transfer; it's a financial message.
+Through the **Proofrails API**, every payment is treated as a structured financial message:
 
-- **Structured Data:** Each transaction carries a `projectId`, `paymentId`, and `reference`.
-- **Compliance Ready:** Data is formatted to be compatible with global banking standards, allowing for seamless exports to traditional accounting systems.
-
-### 3. Developer First: API Key Management
-
-- **Self-Service Portal:** Developers can connect their wallets to instantly check for or generate unique `X-API-KEY` credentials.
-- **Verification Endpoint:** A dedicated GET endpoint allows external apps to verify if a user has paid for a specific service using a combination of `walletAddress` and `projectId`.
+- **Documentation:** Users can download a full XML bundle of their payment for traditional accounting audits.
+- **Structured Identity:** Payments are tied to a `projectId`, `paymentId`, and `receiptId`.
 
 ---
 
 ## 🛠 How It Works
 
-1. **Selection:** User selects their preferred currency (e.g., FXRP) on the ProofLink-enabled project page.
-2. **Execution:** The frontend handles the logic—Standard transfer for native FLR or `transfer()` for ERC-20 tokens.
-3. **Anchoring:** ProofLink’s backend detects the transaction hash and generates a structured payment record.
-4. **Verification:** Third-party platforms query the ProofLink API to grant access or services based on the `hasPaid` status.
+1. **Payment:** The user signs a transaction via **Wagmi**. For ERC-20s, the UI handles a 2-step process (Approve + Contribute).
+2. **Indexing:** Upon transaction confirmation, the frontend triggers a sync to the MongoDB backend via the `/add_payment` endpoint.
+3. **Verification:** Merchants use a unique `X-API-KEY` (stored as a hash in the DB) to verify payment status via the dedicated verification endpoint.
+4. **Settlement:** Builders withdraw funds. The contract deducts the 1.5% fee, which is then made available in the Admin pool.
 
 ---
 
 ## 💻 Technical Stack
 
 - **Blockchain:** Flare Network (Coston2 Testnet).
-- **Frontend:** Next.js 14, Tailwind CSS, Lucide Icons.
-- **Backend:** Node.js, Express, MongoDB (for payment indexing and API key storage).
-- **Web3 Integration:** Ethers.js for wallet interaction and smart contract calls.
+- **Smart Contracts:** Solidity (Vault & Fee Management).
+- **Frontend:** Next.js 14 (App Router), Tailwind CSS, Lucide Icons.
+- **Web3 Hooks:** **Wagmi v2**, **Viem**, and **RainbowKit**.
+- **Backend:** Node.js, Express, MongoDB.
+- **Infrastructure:** Hosted on **Render** (Backend) and **Vercel** (Frontend).
 
 ---
 
 ## 📡 API & Integration
 
-Developers can verify payments with a simple request:
+### Verify a Payment
+
+Developers can verify payments by sending a `GET` request with their API key.
 
 ```bash
-curl -X GET "https://prooflink.onrender.com/api/v1/payments/verify?projectId=SOLAR-01&walletAddress=0x..." \
-  -H "X-API-KEY: your_api_key_here"
+curl -X GET "https://quirklr.onrender.com/api/v1/payments/verify?projectId=YOUR_PROJECT_ID&walletAddress=0x..." \
+  -H "X-API-KEY: your_uuid_api_key"
 
 ```
 
-**Response Example:**
+**Successful Response:**
 
 ```json
 {
   "hasPaid": true,
   "payment": {
-    "amount": 150.5,
-    "asset": "FLR",
-    "receiptId": "RCPT-992-ZZ",
-    "proofHash": "0xaf...2b"
+    "amount": 100.0,
+    "currency": "USDT0",
+    "receiptId": "RCPT-12345",
+    "timestamp": "2026-01-21T..."
   }
 }
 ```
 
 ---
 
+## 🛡 Admin Governance
+
+Access to the System Finance Dashboard is protected by a dual-layer security check:
+
+1. **On-Chain Verification:** The wallet must be the `protocolAdmin` stored in the contract.
+2. **Frontend Gate:** Requires a passkey defined in `NEXT_PUBLIC_ADMIN_PASSKEY`.
+
+**Admin Capabilities:**
+
+- Monitor total on-chain balances across all tokens.
+- View accumulated protocol charges (1.5% fees).
+- Execute withdrawal of protocol profits.
+
+---
+
 ## 🔮 Future Potentials
 
-- **Flare Data Connector Integration:** Use state connectors to verify payments happening on other chains (like BTC or XRP) and anchor the proof on Flare.
-- **Zk-Proofs for Privacy:** Implementing Zero-Knowledge proofs to allow users to prove they paid _enough_ for a project without revealing their total wallet balance.
-- **Fiat On-Ramp Integration:** Allowing "Credit Card to FLR" payments that automatically trigger the ISO 20022 anchoring process.
+- **State Connector Integration:** Verify payments on BTC or XRP chains and anchor proof on Flare.
+- **Editable Fees:** Transition the 1.5% fee to a dynamic variable controlled by the admin.
+- **Zk-Proofs:** Prove payment completion without revealing the user's full transaction history.
 
 ---
