@@ -79,3 +79,23 @@ body {
     animation: orb-float 15s infinite ease-in-out;
   }
 }
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  /* Optional: Force the background to be white and remove shadows app-wide */
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+
+  /* Ensure the main container expands to full width on paper */
+  .print-full-width {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

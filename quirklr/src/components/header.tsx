@@ -54,7 +54,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-slate-100 bg-white/70 backdrop-blur-xl">
+      <header className="no-print sticky top-0 z-50 w-full border-b border-slate-100 bg-white/70 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Balanced Grid Container */}
           <div className="grid grid-cols-2 lg:grid-cols-3 h-20 items-center">
@@ -158,7 +158,7 @@ export default function Header() {
       </header>{" "}
       {/* Mobile Menu Drawer */}
       <div
-        className={`fixed inset-0 z-100 bg-white transition-transform duration-500 ease-in-out lg:hidden ${
+        className={`fixed no-print inset-0 z-100 bg-white transition-transform duration-500 ease-in-out lg:hidden ${
           menuOpen ? "translate-y-0" : "-translate-y-full"
         }`}
       >

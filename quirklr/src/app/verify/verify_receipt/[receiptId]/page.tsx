@@ -15,6 +15,7 @@ import {
   Copy,
   Check,
   QrCode,
+  Box,
 } from "lucide-react";
 
 export default function ReceiptPage() {
@@ -25,7 +26,7 @@ export default function ReceiptPage() {
   const [copied, setCopied] = useState(false);
 
   // The verification URL for the QR Code
-  const verifyUrl = `https://quirklronchain/verify/verify_receipt/${receiptId}`;
+  const verifyUrl = `https://quirklronchain.vercel.app/verify/verify_receipt/${receiptId}`;
 
   const copyToClipboard = async () => {
     try {
@@ -87,7 +88,7 @@ export default function ReceiptPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Main Receipt Card */}
         <div className="lg:col-span-8 bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-gray-100 print:shadow-none print:border-none">
-          <div className="bg-slate-900 p-8 text-white">
+          <div className="bg-slate-900 p-8 print:p-0 text-white">
             <div className="flex justify-between items-start">
               <div>
                 <p className="text-moss font-black tracking-[0.2em] text-[10px] uppercase mb-2">
@@ -111,7 +112,7 @@ export default function ReceiptPage() {
             </div>
           </div>
 
-          <div className="p-8 space-y-8">
+          <div className="p-8 space-y-8 print:space-y-0">
             <div className="grid grid-cols-2 gap-8">
               <div>
                 <label className="text-[10px] uppercase text-slate-400 font-black tracking-widest block mb-1">
@@ -135,10 +136,11 @@ export default function ReceiptPage() {
             <hr className="border-slate-50" />
 
             {/* Wallet Details */}
-            <div className="space-y-4">
+            <div className="space-y-4 print:space-y-1">
               {[
                 { label: "Payer Wallet", value: payment.payerWallet },
                 { label: "Project ID", value: payment.projectId },
+                { label: "Bundle hash", value: payment.bundle_hash },
                 {
                   label: "Flare TXID",
                   value: proof.flare_txid,
@@ -168,10 +170,10 @@ export default function ReceiptPage() {
                   ISO 20022 Digital Proof
                 </h3>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 print:hidden">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 no-print">
                 <a
                   href={
-                    "https://middleware-iso20022-v1-3.onrender.com" +
+                    "https://middleware-iso20022-v1-3-6oic.onrender.com" +
                     proof.xml_url
                   }
                   target="_blank"
@@ -188,15 +190,49 @@ export default function ReceiptPage() {
                   </div>
                   <ExternalLink size={14} className="text-slate-300" />
                 </a>
+                <a
+                  download
+                  href={
+                    "https://middleware-iso20022-v1-3-6oic.onrender.com" +
+                    proof.bundle_url
+                  }
+                  target="_blank"
+                  className="flex items-center justify-between p-4 bg-white rounded-xl border border-slate-200 hover:border-moss transition group"
+                >
+                  <div className="flex items-center gap-3">
+                    <Box
+                      className="text-slate-300 group-hover:text-moss"
+                      size={18}
+                    />
+                    <span className="text-xs font-bold uppercase tracking-tighter">
+                      Download Bundle
+                    </span>
+                  </div>
+                  <ExternalLink size={14} className="text-slate-300" />
+                </a>
               </div>
+              {payment.proofHash ? (
+                <a
+                  href={`https://coston2-explorer.flare.network/tx/${payment.proofHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-moss transition-colors"
+                >
+                  view in explorer <ExternalLink size={14} />
+                </a>
+              ) : (
+                <span className="text-xs text-slate-300 italic">
+                  Processing
+                </span>
+              )}
             </div>
           </div>
         </div>
 
         {/* Sidebar: QR Verification (Shows on top on mobile, right on desktop) */}
-        <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white p-6 rounded-[2.5rem] border border-slate-100 shadow-xl flex flex-col items-center text-center">
-            <div className="mb-6">
+        <div className="lg:col-span-4 space-y-6 print:space-y-1">
+          <div className="bg-white p-6 rounded-[2.5rem] border print:p-0 border-slate-100 shadow-xl flex flex-col items-center text-center">
+            <div className="mb-6 print:mb-0">
               <BrandQRCode
                 value={verifyUrl}
                 size={200}
@@ -204,7 +240,7 @@ export default function ReceiptPage() {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 no-print">
               <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center justify-center gap-2">
                 <QrCode size={16} className="text-moss" /> Scan to Verify
               </h3>
@@ -216,7 +252,7 @@ export default function ReceiptPage() {
 
             <button
               onClick={copyToClipboard}
-              className="mt-6 w-full flex items-center justify-center gap-2 py-3 bg-slate-50 hover:bg-slate-100 rounded-2xl transition-all text-[10px] font-black uppercase tracking-widest text-slate-600 border border-slate-100"
+              className="mt-6 w-full no-print flex items-center justify-center gap-2 py-3 bg-slate-50 hover:bg-slate-100 rounded-2xl transition-all text-[10px] font-black uppercase tracking-widest text-slate-600 border border-slate-100"
             >
               {copied ? (
                 <Check size={14} className="text-moss" />
@@ -228,9 +264,6 @@ export default function ReceiptPage() {
           </div>
 
           <div className="px-6 text-center">
-            <p className="text-[10px] text-slate-400 uppercase tracking-widest font-black mb-2">
-              Powered by
-            </p>
             <p className="font-montserrat font-black text-xl text-slate-900 tracking-tighter">
               QUIRKLR <span className="text-moss">ONCHAIN</span>
             </p>

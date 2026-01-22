@@ -199,20 +199,7 @@ export default function PaymentsPage() {
                       className="p-6 text-right"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      {payment.proofHash ? (
-                        <a
-                          href={`https://coston2-explorer.flare.network/tx/${payment.proofHash}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-moss transition-colors"
-                        >
-                          FLR SCAN <ExternalLink size={14} />
-                        </a>
-                      ) : (
-                        <span className="text-xs text-slate-300 italic">
-                          Processing
-                        </span>
-                      )}
+                      <p className="text-[8px]">click to view receipt</p>
                     </td>
                   </tr>
                 ))}

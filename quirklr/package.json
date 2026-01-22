@@ -18,7 +18,9 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.71.1",
+    "react-markdown": "^10.1.0",
     "react-qrcode-logo": "^4.0.0",
+    "remark-gfm": "^4.0.1",
     "wagmi": "^2.19.5"
   },
   "devDependencies": {

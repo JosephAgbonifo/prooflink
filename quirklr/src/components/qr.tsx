@@ -37,7 +37,7 @@ export const BrandQRCode: React.FC<CustomQRCodeProps> = ({
         />
       </div>
 
-      <div className="mt-4 text-center max-w-[200px]">
+      <div className="mt-4 text-center max-w-[200px] noprint">
         <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
           Secure QR Identity
         </p>
