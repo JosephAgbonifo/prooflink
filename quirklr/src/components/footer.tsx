@@ -130,8 +130,12 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-slate-400 font-medium">
-            © {currentYear} ProofLink Ecosystem. All rights reserved.
+            Powered by proofrails
           </p>
+          <p className="text-xs text-slate-400 font-medium">
+            © {currentYear} Quirklr Ecosystem. All rights reserved.
+          </p>
+
           <div className="flex items-center gap-6 text-xs font-bold text-slate-400">
             <Link href="/privacy" className="hover:text-slate-900 transition">
               Privacy Policy

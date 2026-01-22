@@ -4,13 +4,10 @@ import {
   ShieldCheck,
   Globe,
   Layers,
-  Cpu,
   Zap,
   Network,
   FileCode,
   Lock,
-  Search,
-  ArrowRight,
   TrendingUp,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -31,10 +28,11 @@ export default function AboutPage() {
           </h1>
           <p className="text-xl text-slate-600 font-medium leading-relaxed">
             Quirklr is a financial verification layer built for the Flare
-            Network. We solve the "Context Gap" in blockchain transfers by
-            wrapping raw on-chain data in **ISO 20022 compliant structures**,
-            providing the first auditable bridge between decentralized liquidity
-            and institutional financial reporting.
+            Network. We solve the <strong>Context Gap</strong> in blockchain
+            transfers by wrapping raw on-chain data in{" "}
+            <strong>ISO 20022 compliant structures</strong>, providing the first
+            auditable bridge between decentralized liquidity and institutional
+            financial reporting.
           </p>
         </div>
       </section>
@@ -140,7 +138,8 @@ export default function AboutPage() {
             <p className="text-slate-400 leading-relaxed mb-8">
               Quirklr is built for longevity. To maintain the verification
               infrastructure and indexing services, the system implements a
-              transparent **1.5% protocol charge** on all project withdrawals.
+              transparent <strong>1.5% protocol charge</strong> on all project
+              withdrawals.
             </p>
             <div className="flex gap-4">
               <div className="bg-white/5 border border-white/10 p-6 rounded-3xl">

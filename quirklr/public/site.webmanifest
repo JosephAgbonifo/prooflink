@@ -1,0 +1,22 @@
+{
+  "name": "Quirklr Financial Verification",
+  "short_name": "Quirklr",
+  "description": "ISO 20022 compliant payment verification layer on the Flare Network.",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ff4d00",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "orientation": "portrait"
+}

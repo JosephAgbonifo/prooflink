@@ -15,6 +15,9 @@
   --font-poppins: var(--font-poppins);
   --font-montserrat: var(--font-montserrat);
 }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--background);
