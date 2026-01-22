@@ -193,7 +193,6 @@ export default function ProjectsPage() {
           })}
         </div>
       )}
-      <BrandQRCode value={"0x123...abc"} logoImage="/logo.png" />
     </div>
   );
 }
